@@ -1,0 +1,1493 @@
+<!doctype html><html lang="en">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <title>New Tab Page metadata for WebExtensions</title>
+  <meta content="CG-DRAFT" name="w3c-status">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
+  <meta content="Bikeshed version a433975, updated Tue Jun 13 16:06:00 2023 -0700" name="generator">
+  <link href="https://patrickkettner.github.io/ntp-webextensions" rel="canonical">
+<style>/* Boilerplate: style-autolinks */
+.css.css, .property.property, .descriptor.descriptor {
+    color: var(--a-normal-text);
+    font-size: inherit;
+    font-family: inherit;
+}
+.css::before, .property::before, .descriptor::before {
+    content: "‘";
+}
+.css::after, .property::after, .descriptor::after {
+    content: "’";
+}
+.property, .descriptor {
+    /* Don't wrap property and descriptor names */
+    white-space: nowrap;
+}
+.type { /* CSS value <type> */
+    font-style: italic;
+}
+pre .property::before, pre .property::after {
+    content: "";
+}
+[data-link-type="property"]::before,
+[data-link-type="propdesc"]::before,
+[data-link-type="descriptor"]::before,
+[data-link-type="value"]::before,
+[data-link-type="function"]::before,
+[data-link-type="at-rule"]::before,
+[data-link-type="selector"]::before,
+[data-link-type="maybe"]::before {
+    content: "‘";
+}
+[data-link-type="property"]::after,
+[data-link-type="propdesc"]::after,
+[data-link-type="descriptor"]::after,
+[data-link-type="value"]::after,
+[data-link-type="function"]::after,
+[data-link-type="at-rule"]::after,
+[data-link-type="selector"]::after,
+[data-link-type="maybe"]::after {
+    content: "’";
+}
+
+[data-link-type].production::before,
+[data-link-type].production::after,
+.prod [data-link-type]::before,
+.prod [data-link-type]::after {
+    content: "";
+}
+
+[data-link-type=element],
+[data-link-type=element-attr] {
+    font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-size: .9em;
+}
+[data-link-type=element]::before { content: "<" }
+[data-link-type=element]::after  { content: ">" }
+
+[data-link-type=biblio] {
+    white-space: pre;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+</style>
+<style>/* Boilerplate: style-colors */
+
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --unofficial-watermark: url(https://www.w3.org/StyleSheets/TR/2016/logos/UD-watermark);
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #bbb;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #707070;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --amendment-border: #330099;
+    --amendment-bg: #F5F0FF;
+    --amendment-text: var(--text);
+    --amendmentheading-text: #220066;
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ddd;
+        --bg: black;
+
+        --unofficial-watermark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='%23100808' transform='translate(200 200) rotate(-45) translate(-200 -200)' stroke='%23100808' stroke-width='3'%3E%3Ctext x='50%25' y='220' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EUNOFFICIAL%3C/text%3E%3Ctext x='50%25' y='305' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EDRAFT%3C/text%3E%3C/g%3E%3C/svg%3E");
+
+        --logo-bg: #1a5e9a;
+        --logo-active-bg: #c00;
+        --logo-text: white;
+
+        --tocnav-normal-text: #999;
+        --tocnav-normal-bg: var(--bg);
+        --tocnav-hover-text: var(--tocnav-normal-text);
+        --tocnav-hover-bg: #080808;
+        --tocnav-active-text: #f44;
+        --tocnav-active-bg: var(--tocnav-normal-bg);
+
+        --tocsidebar-text: var(--text);
+        --tocsidebar-bg: #080808;
+        --tocsidebar-shadow: rgba(255,255,255,.1);
+        --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+        --toclink-text: var(--text);
+        --toclink-underline: #6af;
+        --toclink-visited-text: var(--toclink-text);
+        --toclink-visited-underline: #054572;
+
+        --heading-text: #8af;
+
+        --hr-text: var(--text);
+
+        --algo-border: #456;
+
+        --del-text: #f44;
+        --del-bg: transparent;
+        --ins-text: #4a4;
+        --ins-bg: transparent;
+
+        --a-normal-text: #6af;
+        --a-normal-underline: #555;
+        --a-visited-text: var(--a-normal-text);
+        --a-visited-underline: var(--a-normal-underline);
+        --a-hover-bg: rgba(25%, 25%, 25%, .2);
+        --a-active-text: #f44;
+        --a-active-underline: var(--a-active-text);
+
+        --borderedblock-bg: rgba(255, 255, 255, .05);
+
+        --blockquote-border: silver;
+        --blockquote-bg: var(--borderedblock-bg);
+        --blockquote-text: currentcolor;
+
+        --issue-border: #e05252;
+        --issue-bg: var(--borderedblock-bg);
+        --issue-text: var(--text);
+        --issueheading-text: hsl(0deg, 70%, 70%);
+
+        --example-border: hsl(50deg, 90%, 60%);
+        --example-bg: var(--borderedblock-bg);
+        --example-text: var(--text);
+        --exampleheading-text: hsl(50deg, 70%, 70%);
+
+        --note-border: hsl(120deg, 100%, 35%);
+        --note-bg: var(--borderedblock-bg);
+        --note-text: var(--text);
+        --noteheading-text: hsl(120, 70%, 70%);
+        --notesummary-underline: silver;
+
+        --assertion-border: #444;
+        --assertion-bg: var(--borderedblock-bg);
+        --assertion-text: var(--text);
+
+        --advisement-border: orange;
+        --advisement-bg: #222218;
+        --advisement-text: var(--text);
+        --advisementheading-text: #f84;
+
+        --warning-border: red;
+        --warning-bg: hsla(40,100%,20%,0.95);
+        --warning-text: var(--text);
+
+        --amendment-border: #330099;
+        --amendment-bg: #080010;
+        --amendment-text: var(--text);
+        --amendmentheading-text: #cc00ff;
+
+        --def-border: #8ccbf2;
+        --def-bg: #080818;
+        --def-text: var(--text);
+        --defrow-border: #136;
+
+        --datacell-border: silver;
+
+        --indexinfo-text: #aaa;
+
+        --indextable-hover-text: var(--text);
+        --indextable-hover-bg: #181818;
+
+        --outdatedspec-bg: rgba(255, 255, 255, .5);
+        --outdatedspec-text: black;
+        --outdated-bg: maroon;
+        --outdated-text: white;
+        --outdated-shadow: red;
+
+        --editedrec-bg: darkorange;
+    }
+    /* In case a transparent-bg image doesn't expect to be on a dark bg,
+       which is quite common in practice... */
+    img { background: white; }
+}
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
+}
+
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-style-syntax-highlighting */
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
+
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
+ <body class="h-entry">
+  <div class="head">
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
+   <h1 class="p-name no-ref" id="title">New Tab Page metadata for WebExtensions</h1>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-06-15">15 June 2023</time></p>
+   <details open>
+    <summary>More details about this document</summary>
+    <div data-fill-with="spec-metadata">
+     <dl>
+      <dt>This version:
+      <dd><a class="u-url" href="https://patrickkettner.github.io/ntp-webextensions">https://patrickkettner.github.io/ntp-webextensions</a>
+      <dt>Issue Tracking:
+      <dd><a href="https://github.com/patrickkettner/ntp-webextensions/issues/">GitHub</a>
+      <dd><a href="#issues-index">Inline In Spec</a>
+      <dt class="editor">Editor:
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:patrickkettner@google.com">Patrick Kettner</a> (<span class="p-org org">Google</span>)
+     </dl>
+    </div>
+   </details>
+   <div data-fill-with="warning"></div>
+   <p class="copyright" data-fill-with="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2023 the Contributors to the New Tab Page metadata for WebExtensions Specification, published by the <a href="https://www.w3.org/community/webextensions/">WebExtensions Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
+A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available. </p>
+   <hr title="Separator for header">
+  </div>
+  <div class="p-summary" data-fill-with="abstract">
+   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <p>This specification describes an object browsers can provide to extensions that includes metadata about the non-customized version of a new tab page.</p>
+  </div>
+  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="status">
+   <p> This specification was published by the <a href="https://www.w3.org/community/webextensions/">WebExtensions Community Group</a>.
+  It is not a W3C Standard nor is it on the W3C Standards Track.
+
+  Please note that under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a> there is a limited opt-out and other conditions apply.
+
+  Learn more about <a href="http://www.w3.org/community/">W3C Community and Business Groups</a>. </p>
+   <p></p>
+  </div>
+  <div data-fill-with="at-risk"></div>
+  <nav data-fill-with="table-of-contents" id="toc">
+   <h2 class="no-num no-toc no-ref" id="contents">Table of Contents</h2>
+   <ol class="toc" role="directory">
+    <li><a href="#introduction"><span class="secno">1</span> <span class="content">Introduction</span></a>
+    <li><a href="#definitions"><span class="secno">2</span> <span class="content">Definitions</span></a>
+    <li>
+     <a href="#w3c-conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+     <ol class="toc">
+      <li><a href="#w3c-conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
+     </ol>
+    <li>
+     <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
+     <ol class="toc">
+      <li><a href="#index-defined-here"><span class="secno"></span> <span class="content">Terms defined by this specification</span></a>
+      <li><a href="#index-defined-elsewhere"><span class="secno"></span> <span class="content">Terms defined by reference</span></a>
+     </ol>
+    <li>
+     <a href="#references"><span class="secno"></span> <span class="content">References</span></a>
+     <ol class="toc">
+      <li><a href="#normative"><span class="secno"></span> <span class="content">Normative References</span></a>
+     </ol>
+    <li><a href="#idl-index"><span class="secno"></span> <span class="content">IDL Index</span></a>
+    <li><a href="#issues-index"><span class="secno"></span> <span class="content">Issues Index</span></a>
+   </ol>
+  </nav>
+  <main>
+   <section class="non-normative">
+    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
+     <em>This section is non-normative.</em> 
+    <p>A popular form of web extension replaces a browser’s new tab page (NTP) with
+  some other custom functionality. By definition, this removes the content on
+  the NTP. As a result, it is difficult for those extensions to fully match
+  the themeing a user has selected, or include useful content like bookmarks or
+  recent tabs. This document proposes a new permission that exposes a metadata
+  object that contains NTP theming and content information.</p>
+   </section>
+   <section>
+    <h2 class="heading settled" data-level="2" id="definitions"><span class="secno">2. </span><span class="content">Definitions</span><a class="self-link" href="#definitions"></a></h2>
+    <section> Throughout this document, the term "<code>original</code>" refers to the state
+    of something as it would be if no extension was otherwise modifying the NTP.
+    Any theming, bookmarking, organiziation, etc done by the user should be
+    included when determinging the "<code>original<code>" value. </code></code></section>
+    <code><code> <section> <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-ntpmetadata"><code><c- g>NTPMetadata</c-></code></dfn> {
+    <a data-link-type="idl-name" href="#dictdef-ntpstyle" id="ref-for-dictdef-ntpstyle"><c- n>NTPStyle</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="NTPStyle " href="#dom-ntpmetadata-style" id="ref-for-dom-ntpmetadata-style"><c- g>style</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-ntpitem" id="ref-for-dictdef-ntpitem"><c- n>NTPItem</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<NTPItem> " href="#dom-ntpmetadata-items" id="ref-for-dom-ntpmetadata-items"><c- g>items</c-></a>;
+};
+</pre> <p><code class="idl"><a data-link-type="idl" href="#dictdef-ntpmetadata" id="ref-for-dictdef-ntpmetadata">NTPMetadata</a></code> is a readonly object that an extension can use to learn about
+  a the user’s new tab page themeing and contents.</p> <ul> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPMetadata" data-dfn-type="dict-member" data-export id="dom-ntpmetadata-style"><code>style</code></dfn> is an object that maps
+      to the styling that would originally be used for the NTP </li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPMetadata" data-dfn-type="dict-member" data-export id="dom-ntpmetadata-items"><code>items</code></dfn> is an array of items
+      that would originally be featured on the NTP. This would included the
+      user’s favorite pages, bookmarks, reading list, etc. <p>The ordering of <code class="idl"><a data-link-type="idl" href="#dom-ntpmetadata-items" id="ref-for-dom-ntpmetadata-items①">items</a></code> MUST reflect any user customized value (i.e. if the
+      user manually arranged "item A" to be the first reading list entry, then
+      it should be the first item in <code class="idl"><a data-link-type="idl" href="#dom-ntpmetadata-items" id="ref-for-dom-ntpmetadata-items②">items</a></code> with where <code class="idl"><a data-link-type="idl" href="#dom-ntpitem-type" id="ref-for-dom-ntpitem-type">type</a></code>="<code class="idl"><a data-link-type="idl" href="#dom-ntpitemtype-readinglistentry" id="ref-for-dom-ntpitemtype-readinglistentry">readingListEntry</a></code>"</p> <p>If the original NTP was configured to not show anything considered as a <code class="idl"><a data-link-type="idl" href="#dictdef-ntpitem" id="ref-for-dictdef-ntpitem①">NTPItem</a></code>, an empty array MUST be returned.</p> </li> </ul> </section> <section> <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-ntpitem"><code><c- g>NTPItem</c-></code></dfn> {
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-ntpitem-favicon" id="ref-for-dom-ntpitem-favicon"><c- g>favicon</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString①"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-ntpitem-screenshot" id="ref-for-dom-ntpitem-screenshot"><c- g>screenshot</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-ntpitem-title" id="ref-for-dom-ntpitem-title"><c- g>title</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-ntpitem-href" id="ref-for-dom-ntpitem-href"><c- g>href</c-></a>;
+    <a data-link-type="idl-name" href="#enumdef-ntpitemtype" id="ref-for-enumdef-ntpitemtype"><c- n>NTPItemType</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="NTPItemType " href="#dom-ntpitem-type" id="ref-for-dom-ntpitem-type①"><c- g>type</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-ntpitem-previewsnippet" id="ref-for-dom-ntpitem-previewsnippet"><c- g>previewSnippet</c-></a>;
+};
+</pre> <p><code class="idl"><a data-link-type="idl" href="#dictdef-ntpitem" id="ref-for-dictdef-ntpitem②">NTPItem</a></code> is a generic object that represents an individual entry in <a href="#dom-ntpmetadata-items" id="ref-for-dom-ntpmetadata-items③"><code>NTPMetadata.items</code></a>.</p> <ul> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPItem" data-dfn-type="dict-member" data-export id="dom-ntpitem-favicon"><code>favicon</code></dfn>: A valid string
+        &lt;image>, per <a href="https://drafts.csswg.org/css-images-3/#typedef-image">CSS Images Module Level 3 § typedef-image</a>. It MUST be a URI
+        that points to the image that would originally be used as a favicon for
+        this item on NTP.  REQUIRED unless, `screenshot` is defined, in which
+        case it MAY be set to "none"</li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPItem" data-dfn-type="dict-member" data-export id="dom-ntpitem-screenshot"><code>screenshot</code></dfn>: A valid string
+        &lt;image>, per <a href="https://drafts.csswg.org/css-images-3/#typedef-image">CSS Images Module Level 3 § typedef-image</a>. It MUST be a URI
+        that points to the image that would originally be used as a screenshot for
+        this item on NTP.  REQUIRED unless, `favicon` is defined, in which
+        case it MAY be set to "none"</li> </ul> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPItem" data-dfn-type="dict-member" data-export id="dom-ntpitem-title"><code>title</code></dfn>: A string title for the
+        item. </li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPItem" data-dfn-type="dict-member" data-export id="dom-ntpitem-href"><code>href</code></dfn>: A valid URI, pointing to
+        the content for the item. </li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPItem" data-dfn-type="dict-member" data-export id="dom-ntpitem-type"><code>type</code></dfn>: One of <code class="idl"><a data-link-type="idl" href="#enumdef-ntpitemtype" id="ref-for-enumdef-ntpitemtype①">NTPItemType</a></code>.
+        Useful to differentiate between types of content used in some browsers
+        NTP. </li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPItem" data-dfn-type="dict-member" data-export id="dom-ntpitem-previewsnippet"><code>previewSnippet</code></dfn>: A string representing
+        any preview text used for cards on NTP. If no preview text is used, the
+        value MUST be an empty string.</li> <p class="issue" id="issue-02e3cbec"><a class="self-link" href="#issue-02e3cbec"></a> should we consider Image blobs rather than/in addition to URIs refs?</p> <p class="issue" id="issue-5cbe72e3"><a class="self-link" href="#issue-5cbe72e3"></a> should we consider HTML in <code class="idl"><a data-link-type="idl" href="#dom-ntpitem-previewsnippet" id="ref-for-dom-ntpitem-previewsnippet①">previewSnippet</a></code>?</p> </section> <section> <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-ntpstyle"><code><c- g>NTPStyle</c-></code></dfn> {
+    <a data-link-type="idl-name" href="#color" id="ref-for-color"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-backgroundcolor" id="ref-for-dom-ntpstyle-backgroundcolor"><c- g>backgroundColor</c-></a>;
+    <a data-link-type="idl-name" href="#bgimage" id="ref-for-bgimage"><c- n>BGImage</c-></a> <a class="idl-code" data-default="&quot;none&quot;" data-link-type="dict-member" data-type="BGImage " href="#dom-ntpstyle-backgroundimage" id="ref-for-dom-ntpstyle-backgroundimage"><c- g>backgroundImage</c-></a> = "none";
+    <a data-link-type="idl-name" href="#bgposition" id="ref-for-bgposition"><c- n>BGPosition</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BGPosition " href="#dom-ntpstyle-backgroundposition" id="ref-for-dom-ntpstyle-backgroundposition"><c- g>backgroundPosition</c-></a>;
+    <a data-link-type="idl-name" href="#bgrepeat" id="ref-for-bgrepeat"><c- n>BGRepeat</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BGRepeat " href="#dom-ntpstyle-backgroundrepeat" id="ref-for-dom-ntpstyle-backgroundrepeat"><c- g>backgroundRepeat</c-></a>;
+    <a data-link-type="idl-name" href="#color" id="ref-for-color①"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-textcolor" id="ref-for-dom-ntpstyle-textcolor"><c- g>textColor</c-></a>;
+    <a data-link-type="idl-name" href="#color" id="ref-for-color②"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-linkcolor" id="ref-for-dom-ntpstyle-linkcolor"><c- g>linkColor</c-></a>;
+    <a data-link-type="idl-name" href="#color" id="ref-for-color③"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-itemhovercolor" id="ref-for-dom-ntpstyle-itemhovercolor"><c- g>itemHoverColor</c-></a>;
+};
+</pre> <p><code class="idl"><a data-link-type="idl" href="#dictdef-ntpstyle" id="ref-for-dictdef-ntpstyle①">NTPStyle</a></code> is an object that maps to the styling that would be used for
+      the NTP, if the extension was not being used. The properties SHOULD be
+      limited to those that can be customized by themeing.</p> <ul> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPStyle" data-dfn-type="dict-member" data-export id="dom-ntpstyle-backgroundcolor"><code>backgroundColor</code></dfn>: A valid string
+        &lt;color>, per <a href="https://drafts.csswg.org/css-color-3/#numerical">CSS Color Module Level 3 § numerical</a>. Represents the NTP
+        background color. </li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPStyle" data-dfn-type="dict-member" data-export id="dom-ntpstyle-backgroundimage"><code>backgroundImage</code></dfn>: A valid string
+        &lt;image>, per <a href="https://drafts.csswg.org/css-images-3/#typedef-image">CSS Images Module Level 3 § typedef-image</a>. Represents the image being
+        used as a background, defaults to the keyword "none" unless otherwise
+        defined.</li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPStyle" data-dfn-type="dict-member" data-export id="dom-ntpstyle-backgroundposition"><code>backgroundPosition</code></dfn>: A valid
+        background position value, per <a href="https://drafts.csswg.org/css-backgrounds-4/#typedef-bg-position">CSS Backgrounds and Borders Module Level 4 § typedef-bg-position</a></li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPStyle" data-dfn-type="dict-member" data-export id="dom-ntpstyle-backgroundrepeat"><code>backgroundRepeat</code></dfn>: A valid string
+        &lt;repeat-style> value, per <a href="https://drafts.csswg.org/css-backgrounds-4/#typedef-repeat-style">CSS Backgrounds and Borders Module Level 4 § typedef-repeat-style</a></li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPStyle" data-dfn-type="dict-member" data-export id="dom-ntpstyle-textcolor"><code>textColor</code></dfn>: A valid string
+        &lt;color> value, per <a href="https://drafts.csswg.org/css-color-3/#numerical">CSS Color Module Level 3 § numerical</a>. Represents the color
+        of non-link text on the original NTP</li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPStyle" data-dfn-type="dict-member" data-export id="dom-ntpstyle-linkcolor"><code>linkColor</code></dfn>: A valid string
+        &lt;color> value, per <a href="https://drafts.csswg.org/css-color-3/#numerical">CSS Color Module Level 3 § numerical</a>. Represents the color used
+        for the text portion of links. No <a href="-&quot;https://drafts.csswg.org/selectors/#the-active-pseudo&quot;">pseudo class values</a> are
+        given. </li> <li><dfn class="dfn-paneled idl-code" data-dfn-for="NTPStyle" data-dfn-type="dict-member" data-export id="dom-ntpstyle-itemhovercolor"><code>itemHoverColor</code></dfn>: A valid string
+        &lt;color> value, per <a href="https://drafts.csswg.org/css-color-3/#numerical">CSS Color Module Level 3 § numerical</a>. Represents the color used
+        for the <code>backgroundColor</code> for a <code class="idl"><a data-link-type="idl" href="#dictdef-ntpitem" id="ref-for-dictdef-ntpitem③">NTPItem</a></code> for :hover/:active
+        states</li> </ul> <p class="issue" id="issue-c792674c"><a class="self-link" href="#issue-c792674c"></a> should we add a shorthand `background` property for convenience?</p> </section> <section> <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-ntpitemtype"><code><c- g>NTPItemType</c-></code></dfn> {
+  <dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="enum-value" data-export id="dom-ntpitemtype-bookmark"><code><c- s>"bookmark"</c-></code><a class="self-link" href="#dom-ntpitemtype-bookmark"></a></dfn>,
+  <dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="enum-value" data-export id="dom-ntpitemtype-recent"><code><c- s>"recent"</c-></code><a class="self-link" href="#dom-ntpitemtype-recent"></a></dfn>,
+  <dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="enum-value" data-export id="dom-ntpitemtype-suggestion"><code><c- s>"suggestion"</c-></code><a class="self-link" href="#dom-ntpitemtype-suggestion"></a></dfn>,
+  <dfn class="dfn-paneled idl-code" data-dfn-for="NTPItemType" data-dfn-type="enum-value" data-export id="dom-ntpitemtype-readinglistentry"><code><c- s>"readingListEntry"</c-></code></dfn>,
+  <dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="enum-value" data-export id="dom-ntpitemtype-card"><code><c- s>"card"</c-></code><a class="self-link" href="#dom-ntpitemtype-card"></a></dfn>,
+};
+</pre> <ul> <li><dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="dict-member" data-export id="dom-ntpitemtype-bookmark①"><code>bookmark</code><a class="self-link" href="#dom-ntpitemtype-bookmark①"></a></dfn>: Used for any bookmarks
+        prominently featured on the original NTP. </li> <li><dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="dict-member" data-export id="dom-ntpitemtype-recent①"><code>recent</code><a class="self-link" href="#dom-ntpitemtype-recent①"></a></dfn>: Used for any recent
+        tabs that would be featured on the original NTP. </li> <li><dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="dict-member" data-export id="dom-ntpitemtype-suggestion①"><code>suggestion</code><a class="self-link" href="#dom-ntpitemtype-suggestion①"></a></dfn>: Used for item
+        that is based on a browsers recommendation, rather than the user’s direct
+        history or bookmark that woudl be featured on the original NTP. </li> <li><dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="dict-member" data-export id="dom-ntpitemtype-readinglistentry②"><code>readingListEntry</code><a class="self-link" href="#dom-ntpitemtype-readinglistentry②"></a></dfn>: Used for any
+        link that would be featured as an entry on a Reading List on the original NTP.</li> <li><dfn class="idl-code" data-dfn-for="NTPItemType" data-dfn-type="dict-member" data-export id="dom-ntpitemtype-readinglistentry①"><code>readingListEntry</code><a class="self-link" href="#dom-ntpitemtype-readinglistentry①"></a></dfn>: Used for items
+        that feature card like widgets - e.g. text previews, preview images, etc</li> </ul> </section> <section> <pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="color"><code><c- g>Color</c-></code></dfn> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="Color" data-dfn-type="attribute" data-export data-readonly data-type="DOMString" id="dom-color-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-color-value"></a></dfn>;
+};
+</pre> <p><code class="idl"><a data-link-type="idl" href="#color" id="ref-for-color④">Color</a></code> is a valid &lt;color> value, as per <a href="https://drafts.csswg.org/css-color-3/#numerical">CSS Color Module Level 3 § numerical</a></p> <p class="issue" id="issue-7924772f"><a class="self-link" href="#issue-7924772f"></a> can we import this rather than declaring it locally?</p> </section> <section> <pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="bgimage"><code><c- g>BGImage</c-></code></dfn> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString②"><c- b>USVString</c-></a> <dfn class="idl-code" data-dfn-for="BGImage" data-dfn-type="attribute" data-export data-readonly data-type="USVString" id="dom-bgimage-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-bgimage-value"></a></dfn>;
+};
+</pre> <p><code class="idl"><a data-link-type="idl" href="#bgimage" id="ref-for-bgimage①">BGImage</a></code> is a valid &lt;image> value, as per <a href="https://drafts.csswg.org/css-images-3/#typedef-image">CSS Images Module Level 3 § typedef-image</a></p> <p class="issue" id="issue-7924772f①"><a class="self-link" href="#issue-7924772f①"></a> can we import this rather than declaring it locally?</p> </section> <section> <pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="bgposition"><code><c- g>BGPosition</c-></code></dfn> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="BGPosition" data-dfn-type="attribute" data-export data-readonly data-type="DOMString" id="dom-bgposition-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-bgposition-value"></a></dfn>;
+};
+</pre> <p><code class="idl"><a data-link-type="idl" href="#bgposition" id="ref-for-bgposition①">BGPosition</a></code> is a valid &lt;bg-position> value, as per <a href="https://drafts.csswg.org/css-backgrounds-4/#typedef-bg-position">CSS Backgrounds and Borders Module Level 4 § typedef-bg-position</a></p> <p class="issue" id="issue-7924772f②"><a class="self-link" href="#issue-7924772f②"></a> can we import this rather than declaring it locally?</p> </section> <section> <pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="bgrepeat"><code><c- g>BGRepeat</c-></code></dfn> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a> <dfn class="idl-code" data-dfn-for="BGRepeat" data-dfn-type="attribute" data-export data-readonly data-type="DOMString" id="dom-bgrepeat-value"><code><c- g>value</c-></code><a class="self-link" href="#dom-bgrepeat-value"></a></dfn>;
+};
+</pre> <p><code class="idl"><a data-link-type="idl" href="#bgrepeat" id="ref-for-bgrepeat①">BGRepeat</a></code> is a valid &lt;repeat-style> value, as per <a href="https://drafts.csswg.org/css-backgrounds-4/#typedef-repeat-style">CSS Backgrounds and Borders Module Level 4 § typedef-repeat-style</a></p> <p class="issue" id="issue-7924772f③"><a class="self-link" href="#issue-7924772f③"></a> can we import this rather than declaring it locally?</p> </section> </code></code>
+   </section>
+   <code><code> </code></code>
+  </main>
+  <code><code> <div data-fill-with="conformance"> <h2 class="no-ref no-num heading settled" id="w3c-conformance"><span class="content">Conformance</span><a class="self-link" href="#w3c-conformance"></a></h2> <h3 class="no-ref no-num heading settled" id="w3c-conventions"><span class="content">Document conventions</span><a class="self-link" href="#w3c-conventions"></a></h3> <p>Conformance requirements are expressed
+    with a combination of descriptive assertions
+    and RFC 2119 terminology.
+    The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
+    in the normative parts of this document
+    are to be interpreted as described in RFC 2119.
+    However, for readability,
+    these words do not appear in all uppercase letters in this specification. </p><p>All of the text of this specification is normative
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119" title="Key words for use in RFCs to Indicate Requirement Levels">[RFC2119]</a> </p><p>Examples in this specification are introduced with the words “for example”
+    or are set apart from the normative text
+    with <code>class="example"</code>,
+    like this: </p><div class="example" id="w3c-example"><a class="self-link" href="#w3c-example"></a> <p>This is an example of an informative example. </p></div> <p>Informative notes begin with the word “Note”
+    and are set apart from the normative text
+    with <code>class="note"</code>,
+    like this: </p><p class="note" role="note">Note, this is an informative note.</p> </div> <script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script> </code></code>
+  <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
+  <ul class="index">
+   <li><a href="#dom-ntpstyle-backgroundcolor">backgroundColor</a><span>, in § 2</span>
+   <li><a href="#dom-ntpstyle-backgroundimage">backgroundImage</a><span>, in § 2</span>
+   <li><a href="#dom-ntpstyle-backgroundposition">backgroundPosition</a><span>, in § 2</span>
+   <li><a href="#dom-ntpstyle-backgroundrepeat">backgroundRepeat</a><span>, in § 2</span>
+   <li><a href="#bgimage">BGImage</a><span>, in § 2</span>
+   <li><a href="#bgposition">BGPosition</a><span>, in § 2</span>
+   <li><a href="#bgrepeat">BGRepeat</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitemtype-bookmark">"bookmark"</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitemtype-bookmark①">bookmark</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitemtype-card">"card"</a><span>, in § 2</span>
+   <li><a href="#color">Color</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitem-favicon">favicon</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitem-href">href</a><span>, in § 2</span>
+   <li><a href="#dom-ntpstyle-itemhovercolor">itemHoverColor</a><span>, in § 2</span>
+   <li><a href="#dom-ntpmetadata-items">items</a><span>, in § 2</span>
+   <li><a href="#dom-ntpstyle-linkcolor">linkColor</a><span>, in § 2</span>
+   <li><a href="#dictdef-ntpitem">NTPItem</a><span>, in § 2</span>
+   <li><a href="#enumdef-ntpitemtype">NTPItemType</a><span>, in § 2</span>
+   <li><a href="#dictdef-ntpmetadata">NTPMetadata</a><span>, in § 2</span>
+   <li><a href="#dictdef-ntpstyle">NTPStyle</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitem-previewsnippet">previewSnippet</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitemtype-readinglistentry">"readingListEntry"</a><span>, in § 2</span>
+   <li>
+    readingListEntry
+    <ul>
+     <li><a href="#dom-ntpitemtype-readinglistentry②">dict-member for NTPItemType</a><span>, in § 2</span>
+     <li><a href="#dom-ntpitemtype-readinglistentry①">dict-member for NTPItemType</a><span>, in § 2</span>
+    </ul>
+   <li><a href="#dom-ntpitemtype-recent">"recent"</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitemtype-recent①">recent</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitem-screenshot">screenshot</a><span>, in § 2</span>
+   <li><a href="#dom-ntpmetadata-style">style</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitemtype-suggestion">"suggestion"</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitemtype-suggestion①">suggestion</a><span>, in § 2</span>
+   <li><a href="#dom-ntpstyle-textcolor">textColor</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitem-title">title</a><span>, in § 2</span>
+   <li><a href="#dom-ntpitem-type">type</a><span>, in § 2</span>
+   <li>
+    value
+    <ul>
+     <li><a href="#dom-bgimage-value">attribute for BGImage</a><span>, in § 2</span>
+     <li><a href="#dom-bgposition-value">attribute for BGPosition</a><span>, in § 2</span>
+     <li><a href="#dom-bgrepeat-value">attribute for BGRepeat</a><span>, in § 2</span>
+     <li><a href="#dom-color-value">attribute for Color</a><span>, in § 2</span>
+    </ul>
+  </ul>
+  <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
+  <ul class="index">
+   <li>
+    <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
+    <ul>
+     <li><span class="dfn-paneled" id="8855a9aa">DOMString</span>
+     <li><span class="dfn-paneled" id="dcf5fafa">FrozenArray</span>
+     <li><span class="dfn-paneled" id="b0d7f3c3">USVString</span>
+    </ul>
+  </ul>
+  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <dl>
+   <dt id="biblio-css-color-3">[CSS-COLOR-3]
+   <dd>Tantek Çelik; Chris Lilley; David Baron. <a href="https://drafts.csswg.org/css-color-3/"><cite>CSS Color Module Level 3</cite></a>. URL: <a href="https://drafts.csswg.org/css-color-3/">https://drafts.csswg.org/css-color-3/</a>
+   <dt id="biblio-css-images-3">[CSS-IMAGES-3]
+   <dd>Tab Atkins Jr.; Elika Etemad; Lea Verou. <a href="https://drafts.csswg.org/css-images-3/"><cite>CSS Images Module Level 3</cite></a>. URL: <a href="https://drafts.csswg.org/css-images-3/">https://drafts.csswg.org/css-images-3/</a>
+   <dt id="biblio-css4background">[CSS4BACKGROUND]
+   <dd>Bert Bos; Elika J. Etemad; Lea Verou. <a href="https://drafts.csswg.org/css-backgrounds-4/"><cite>CSS Backgrounds and Borders Module Level 4</cite></a>. Proposal for a CSS module. URL: <a href="https://drafts.csswg.org/css-backgrounds-4/">https://drafts.csswg.org/css-backgrounds-4/</a>
+   <dt id="biblio-rfc2119">[RFC2119]
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
+   <dt id="biblio-webidl">[WEBIDL]
+   <dd>Edgar Chen; Timothy Gu. <a href="https://webidl.spec.whatwg.org/"><cite>Web IDL Standard</cite></a>. Living Standard. URL: <a href="https://webidl.spec.whatwg.org/">https://webidl.spec.whatwg.org/</a>
+  </dl>
+  <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
+<pre class="idl highlight def"><c- b>dictionary</c-> <a href="#dictdef-ntpmetadata"><code><c- g>NTPMetadata</c-></code></a> {
+    <a data-link-type="idl-name" href="#dictdef-ntpstyle"><c- n>NTPStyle</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="NTPStyle " href="#dom-ntpmetadata-style"><c- g>style</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-ntpitem"><c- n>NTPItem</c-></a>> <a class="idl-code" data-link-type="dict-member" data-type="FrozenArray<NTPItem> " href="#dom-ntpmetadata-items"><c- g>items</c-></a>;
+};
+
+<c- b>dictionary</c-> <a href="#dictdef-ntpitem"><code><c- g>NTPItem</c-></code></a> {
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-ntpitem-favicon"><c- g>favicon</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="USVString " href="#dom-ntpitem-screenshot"><c- g>screenshot</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-ntpitem-title"><c- g>title</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-ntpitem-href"><c- g>href</c-></a>;
+    <a data-link-type="idl-name" href="#enumdef-ntpitemtype"><c- n>NTPItemType</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="NTPItemType " href="#dom-ntpitem-type"><c- g>type</c-></a>;
+    <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="DOMString " href="#dom-ntpitem-previewsnippet"><c- g>previewSnippet</c-></a>;
+};
+
+<c- b>dictionary</c-> <a href="#dictdef-ntpstyle"><code><c- g>NTPStyle</c-></code></a> {
+    <a data-link-type="idl-name" href="#color"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-backgroundcolor"><c- g>backgroundColor</c-></a>;
+    <a data-link-type="idl-name" href="#bgimage"><c- n>BGImage</c-></a> <a class="idl-code" data-default="&quot;none&quot;" data-link-type="dict-member" data-type="BGImage " href="#dom-ntpstyle-backgroundimage"><c- g>backgroundImage</c-></a> = "none";
+    <a data-link-type="idl-name" href="#bgposition"><c- n>BGPosition</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BGPosition " href="#dom-ntpstyle-backgroundposition"><c- g>backgroundPosition</c-></a>;
+    <a data-link-type="idl-name" href="#bgrepeat"><c- n>BGRepeat</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="BGRepeat " href="#dom-ntpstyle-backgroundrepeat"><c- g>backgroundRepeat</c-></a>;
+    <a data-link-type="idl-name" href="#color"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-textcolor"><c- g>textColor</c-></a>;
+    <a data-link-type="idl-name" href="#color"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-linkcolor"><c- g>linkColor</c-></a>;
+    <a data-link-type="idl-name" href="#color"><c- n>Color</c-></a> <a class="idl-code" data-link-type="dict-member" data-type="Color " href="#dom-ntpstyle-itemhovercolor"><c- g>itemHoverColor</c-></a>;
+};
+
+<c- b>enum</c-> <a href="#enumdef-ntpitemtype"><code><c- g>NTPItemType</c-></code></a> {
+  <a href="#dom-ntpitemtype-bookmark"><code><c- s>"bookmark"</c-></code></a>,
+  <a href="#dom-ntpitemtype-recent"><code><c- s>"recent"</c-></code></a>,
+  <a href="#dom-ntpitemtype-suggestion"><code><c- s>"suggestion"</c-></code></a>,
+  <a href="#dom-ntpitemtype-readinglistentry"><code><c- s>"readingListEntry"</c-></code></a>,
+  <a href="#dom-ntpitemtype-card"><code><c- s>"card"</c-></code></a>,
+};
+
+<c- b>interface</c-> <a href="#color"><code><c- g>Color</c-></code></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-readonly data-type="DOMString" href="#dom-color-value"><code><c- g>value</c-></code></a>;
+};
+
+<c- b>interface</c-> <a href="#bgimage"><code><c- g>BGImage</c-></code></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a> <a data-readonly data-type="USVString" href="#dom-bgimage-value"><code><c- g>value</c-></code></a>;
+};
+
+<c- b>interface</c-> <a href="#bgposition"><code><c- g>BGPosition</c-></code></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-readonly data-type="DOMString" href="#dom-bgposition-value"><code><c- g>value</c-></code></a>;
+};
+
+<c- b>interface</c-> <a href="#bgrepeat"><code><c- g>BGRepeat</c-></code></a> {
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString"><c- b>DOMString</c-></a> <a data-readonly data-type="DOMString" href="#dom-bgrepeat-value"><code><c- g>value</c-></code></a>;
+};
+
+</pre>
+  <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
+  <div style="counter-reset:issue">
+   <div class="issue"> should we consider Image blobs rather than/in addition to URIs refs? <a class="issue-return" href="#issue-02e3cbec" title="Jump to section">↵</a></div>
+   <div class="issue"> should we consider HTML in <code class="idl"><a data-link-type="idl" href="#dom-ntpitem-previewsnippet">previewSnippet</a></code>? <a class="issue-return" href="#issue-5cbe72e3" title="Jump to section">↵</a></div>
+   <div class="issue"> should we add a shorthand `background` property for convenience? <a class="issue-return" href="#issue-c792674c" title="Jump to section">↵</a></div>
+   <div class="issue"> can we import this rather than declaring it locally? <a class="issue-return" href="#issue-7924772f" title="Jump to section">↵</a></div>
+   <div class="issue"> can we import this rather than declaring it locally? <a class="issue-return" href="#issue-7924772f①" title="Jump to section">↵</a></div>
+   <div class="issue"> can we import this rather than declaring it locally? <a class="issue-return" href="#issue-7924772f②" title="Jump to section">↵</a></div>
+   <div class="issue"> can we import this rather than declaring it locally? <a class="issue-return" href="#issue-7924772f③" title="Jump to section">↵</a></div>
+  </div>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel-json */
+window.dfnpanelData = {};
+window.dfnpanelData['8855a9aa'] = {"dfnID": "8855a9aa", "url": "https://webidl.spec.whatwg.org/#idl-DOMString", "dfnText": "DOMString", "refSections": [{"refs": [{"id": "ref-for-idl-DOMString"}, {"id": "ref-for-idl-DOMString\u2460"}, {"id": "ref-for-idl-DOMString\u2461"}, {"id": "ref-for-idl-DOMString\u2462"}, {"id": "ref-for-idl-DOMString\u2463"}, {"id": "ref-for-idl-DOMString\u2464"}], "title": "2. Definitions"}], "external": true};
+window.dfnpanelData['dcf5fafa'] = {"dfnID": "dcf5fafa", "url": "https://webidl.spec.whatwg.org/#idl-frozen-array", "dfnText": "FrozenArray", "refSections": [{"refs": [{"id": "ref-for-idl-frozen-array"}], "title": "2. Definitions"}], "external": true};
+window.dfnpanelData['b0d7f3c3'] = {"dfnID": "b0d7f3c3", "url": "https://webidl.spec.whatwg.org/#idl-USVString", "dfnText": "USVString", "refSections": [{"refs": [{"id": "ref-for-idl-USVString"}, {"id": "ref-for-idl-USVString\u2460"}, {"id": "ref-for-idl-USVString\u2461"}], "title": "2. Definitions"}], "external": true};
+window.dfnpanelData['dictdef-ntpmetadata'] = {"dfnID": "dictdef-ntpmetadata", "url": "#dictdef-ntpmetadata", "dfnText": "NTPMetadata", "refSections": [{"refs": [{"id": "ref-for-dictdef-ntpmetadata"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpmetadata-style'] = {"dfnID": "dom-ntpmetadata-style", "url": "#dom-ntpmetadata-style", "dfnText": "style", "refSections": [{"refs": [{"id": "ref-for-dom-ntpmetadata-style"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpmetadata-items'] = {"dfnID": "dom-ntpmetadata-items", "url": "#dom-ntpmetadata-items", "dfnText": "items", "refSections": [{"refs": [{"id": "ref-for-dom-ntpmetadata-items"}, {"id": "ref-for-dom-ntpmetadata-items\u2460"}, {"id": "ref-for-dom-ntpmetadata-items\u2461"}, {"id": "ref-for-dom-ntpmetadata-items"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dictdef-ntpitem'] = {"dfnID": "dictdef-ntpitem", "url": "#dictdef-ntpitem", "dfnText": "NTPItem", "refSections": [{"refs": [{"id": "ref-for-dictdef-ntpitem"}, {"id": "ref-for-dictdef-ntpitem\u2460"}, {"id": "ref-for-dictdef-ntpitem\u2461"}, {"id": "ref-for-dictdef-ntpitem\u2462"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpitem-favicon'] = {"dfnID": "dom-ntpitem-favicon", "url": "#dom-ntpitem-favicon", "dfnText": "favicon", "refSections": [{"refs": [{"id": "ref-for-dom-ntpitem-favicon"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpitem-screenshot'] = {"dfnID": "dom-ntpitem-screenshot", "url": "#dom-ntpitem-screenshot", "dfnText": "screenshot", "refSections": [{"refs": [{"id": "ref-for-dom-ntpitem-screenshot"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpitem-title'] = {"dfnID": "dom-ntpitem-title", "url": "#dom-ntpitem-title", "dfnText": "title", "refSections": [{"refs": [{"id": "ref-for-dom-ntpitem-title"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpitem-href'] = {"dfnID": "dom-ntpitem-href", "url": "#dom-ntpitem-href", "dfnText": "href", "refSections": [{"refs": [{"id": "ref-for-dom-ntpitem-href"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpitem-type'] = {"dfnID": "dom-ntpitem-type", "url": "#dom-ntpitem-type", "dfnText": "type", "refSections": [{"refs": [{"id": "ref-for-dom-ntpitem-type"}, {"id": "ref-for-dom-ntpitem-type\u2460"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpitem-previewsnippet'] = {"dfnID": "dom-ntpitem-previewsnippet", "url": "#dom-ntpitem-previewsnippet", "dfnText": "previewSnippet", "refSections": [{"refs": [{"id": "ref-for-dom-ntpitem-previewsnippet"}, {"id": "ref-for-dom-ntpitem-previewsnippet\u2460"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dictdef-ntpstyle'] = {"dfnID": "dictdef-ntpstyle", "url": "#dictdef-ntpstyle", "dfnText": "NTPStyle", "refSections": [{"refs": [{"id": "ref-for-dictdef-ntpstyle"}, {"id": "ref-for-dictdef-ntpstyle\u2460"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpstyle-backgroundcolor'] = {"dfnID": "dom-ntpstyle-backgroundcolor", "url": "#dom-ntpstyle-backgroundcolor", "dfnText": "backgroundColor", "refSections": [{"refs": [{"id": "ref-for-dom-ntpstyle-backgroundcolor"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpstyle-backgroundimage'] = {"dfnID": "dom-ntpstyle-backgroundimage", "url": "#dom-ntpstyle-backgroundimage", "dfnText": "backgroundImage", "refSections": [{"refs": [{"id": "ref-for-dom-ntpstyle-backgroundimage"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpstyle-backgroundposition'] = {"dfnID": "dom-ntpstyle-backgroundposition", "url": "#dom-ntpstyle-backgroundposition", "dfnText": "backgroundPosition", "refSections": [{"refs": [{"id": "ref-for-dom-ntpstyle-backgroundposition"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpstyle-backgroundrepeat'] = {"dfnID": "dom-ntpstyle-backgroundrepeat", "url": "#dom-ntpstyle-backgroundrepeat", "dfnText": "backgroundRepeat", "refSections": [{"refs": [{"id": "ref-for-dom-ntpstyle-backgroundrepeat"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpstyle-textcolor'] = {"dfnID": "dom-ntpstyle-textcolor", "url": "#dom-ntpstyle-textcolor", "dfnText": "textColor", "refSections": [{"refs": [{"id": "ref-for-dom-ntpstyle-textcolor"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpstyle-linkcolor'] = {"dfnID": "dom-ntpstyle-linkcolor", "url": "#dom-ntpstyle-linkcolor", "dfnText": "linkColor", "refSections": [{"refs": [{"id": "ref-for-dom-ntpstyle-linkcolor"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpstyle-itemhovercolor'] = {"dfnID": "dom-ntpstyle-itemhovercolor", "url": "#dom-ntpstyle-itemhovercolor", "dfnText": "itemHoverColor", "refSections": [{"refs": [{"id": "ref-for-dom-ntpstyle-itemhovercolor"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['enumdef-ntpitemtype'] = {"dfnID": "enumdef-ntpitemtype", "url": "#enumdef-ntpitemtype", "dfnText": "NTPItemType", "refSections": [{"refs": [{"id": "ref-for-enumdef-ntpitemtype"}, {"id": "ref-for-enumdef-ntpitemtype\u2460"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['dom-ntpitemtype-readinglistentry'] = {"dfnID": "dom-ntpitemtype-readinglistentry", "url": "#dom-ntpitemtype-readinglistentry", "dfnText": "\"readingListEntry\"", "refSections": [{"refs": [{"id": "ref-for-dom-ntpitemtype-readinglistentry"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['color'] = {"dfnID": "color", "url": "#color", "dfnText": "Color", "refSections": [{"refs": [{"id": "ref-for-color"}, {"id": "ref-for-color\u2460"}, {"id": "ref-for-color\u2461"}, {"id": "ref-for-color\u2462"}, {"id": "ref-for-color\u2463"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['bgimage'] = {"dfnID": "bgimage", "url": "#bgimage", "dfnText": "BGImage", "refSections": [{"refs": [{"id": "ref-for-bgimage"}, {"id": "ref-for-bgimage\u2460"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['bgposition'] = {"dfnID": "bgposition", "url": "#bgposition", "dfnText": "BGPosition", "refSections": [{"refs": [{"id": "ref-for-bgposition"}, {"id": "ref-for-bgposition\u2460"}], "title": "2. Definitions"}], "external": false};
+window.dfnpanelData['bgrepeat'] = {"dfnID": "bgrepeat", "url": "#bgrepeat", "dfnText": "BGRepeat", "refSections": [{"refs": [{"id": "ref-for-bgrepeat"}, {"id": "ref-for-bgrepeat\u2460"}], "title": "2. Definitions"}], "external": false};
+</script>
+<script>/* Boilerplate: script-dom-helper */
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
+}
+
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
+}
+
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
+});
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
+}
+</script>

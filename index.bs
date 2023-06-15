@@ -1,0 +1,227 @@
+<pre class="metadata">
+Title: New Tab Page metadata for WebExtensions
+Shortname: ntp-webextensions
+Level: 1
+Group: wecg
+Status: CG-DRAFT
+URL: https://patrickkettner.github.io/ntp-webextensions
+Editor: Patrick Kettner, Google, patrickkettner@google.com
+Abstract: This specification describes an object browsers can provide to extensions that includes metadata about the non-customized version of a new tab page.
+Repository: patrickkettner/ntp-webextensions
+</pre>
+
+<section class="non-normative">
+  <h2 id="introduction">Introduction</h2>
+  <em>This section is non-normative.</em>
+
+  A popular form of web extension replaces a browser's new tab page (NTP) with
+  some other custom functionality. By definition, this removes the content on
+  the NTP. As a result, it is difficult for those extensions to fully match
+  the themeing a user has selected, or include useful content like bookmarks or
+  recent tabs. This document proposes a new permission that exposes a metadata
+  object that contains NTP theming and content information.
+
+</section>
+
+<section>
+  <h2 id="definitions">Definitions</h2>
+  <section>
+    Throughout this document, the term "<code>original</code>" refers to the state
+    of something as it would be if no extension was otherwise modifying the NTP.
+    Any theming, bookmarking, organiziation, etc done by the user should be
+    included when determinging the "<code>original<code>" value.
+  </section>
+
+  <section>
+    <pre class="idl">
+      dictionary NTPMetadata {
+          NTPStyle style;
+          FrozenArray<<NTPItem>> items;
+      };
+    </pre>
+
+  {{NTPMetadata}} is a readonly object that an extension can use to learn about
+  a the user's new tab page themeing and contents.
+    <ul>
+      <li><dfn for='NTPMetadata' dict-member>style</dfn> is an object that maps
+      to the styling that would originally be used for the NTP </li>
+      <li><dfn for='NTPMetadata' dict-member>items</dfn> is an array of items
+      that would originally be featured on the NTP. This would included the
+      user's favorite pages, bookmarks, reading list, etc.
+
+      The ordering of {{items}} MUST reflect any user customized value (i.e. if the
+      user manually arranged "item A" to be the first reading list entry, then
+      it should be the first item in {{items}} with where {{type}}="{{readingListEntry}}"
+
+      If the original NTP was configured to not show anything considered as a
+      {{NTPItem}}, an empty array MUST be returned.
+      </li>
+    </ul>
+
+  </section>
+
+  <section>
+    <pre class="idl">
+      dictionary NTPItem {
+          USVString favicon;
+          USVString screenshot;
+          DOMString title;
+          DOMString href;
+          NTPItemType type;
+          DOMString previewSnippet;
+      };
+    </pre>
+
+    {{NTPItem}} is a generic object that represents an individual entry in
+    <a href="#dom-ntpmetadata-items"><code>NTPMetadata.items</code></a>.
+    <ul>
+      <li><dfn for='NTPItem' dict-member>favicon</dfn>: A valid string
+        &lt;image&gt;, per [[css3-images#typedef-image]]. It MUST be a URI
+        that points to the image that would originally be used as a favicon for
+        this item on NTP.  REQUIRED unless, `screenshot` is defined, in which
+        case it MAY be set to "none"</li>
+      <li><dfn for='NTPItem' dict-member>screenshot</dfn>: A valid string
+        &lt;image&gt;, per [[css3-images#typedef-image]]. It MUST be a URI
+        that points to the image that would originally be used as a screenshot for
+        this item on NTP.  REQUIRED unless, `favicon` is defined, in which
+        case it MAY be set to "none"</li>
+    </ul>
+      <li><dfn for='NTPItem' dict-member>title</dfn>: A string title for the
+        item. </li>
+      <li><dfn for='NTPItem' dict-member>href</dfn>: A valid URI, pointing to
+        the content for the item. </li>
+      <li><dfn for='NTPItem' dict-member>type</dfn>: One of {{NTPItemType}}.
+        Useful to differentiate between types of content used in some browsers
+        NTP. </li>
+      <li><dfn for='NTPItem' dict-member>previewSnippet</dfn>: A string representing
+        any preview text used for cards on NTP. If no preview text is used, the
+        value MUST be an empty string.</li>
+      </ul>
+
+
+    Issue: should we consider Image blobs rather than/in addition to URIs refs?
+
+    Issue: should we consider HTML in {{previewSnippet}}?
+  </section>
+
+  <section>
+    <pre class="idl">
+      dictionary NTPStyle {
+          Color backgroundColor;
+          BGImage backgroundImage = "none";
+          BGPosition backgroundPosition;
+          BGRepeat backgroundRepeat;
+          Color textColor;
+          Color linkColor;
+          Color itemHoverColor;
+      };
+    </pre>
+
+      {{NTPStyle}} is an object that maps to the styling that would be used for
+      the NTP, if the extension was not being used. The properties SHOULD be
+      limited to those that can be customized by themeing.
+    <ul>
+      <li><dfn for='NTPStyle' dict-member>backgroundColor</dfn>: A valid string
+        &lt;color&gt;, per [[css3-color#numerical]]. Represents the NTP
+        background color. </li>
+      <li><dfn for='NTPStyle' dict-member>backgroundImage</dfn>: A valid string
+        &lt;image&gt;, per [[css3-images#typedef-image]]. Represents the image being
+        used as a background, defaults to the keyword "none" unless otherwise
+        defined.</li>
+      <li><dfn for='NTPStyle' dict-member>backgroundPosition</dfn>: A valid
+        background position value, per [[css4background#typedef-bg-position]]</li>
+      <li><dfn for='NTPStyle' dict-member>backgroundRepeat</dfn>: A valid string
+        &lt;repeat-style&gt; value, per [[css4background#typedef-repeat-style]]</li>
+      <li><dfn for='NTPStyle' dict-member>textColor</dfn>: A valid string
+        &lt;color&gt; value, per [[css3-color#numerical]]. Represents the color
+        of non-link text on the original NTP</li>
+      <li><dfn for='NTPStyle' dict-member>linkColor</dfn>: A valid string
+        &lt;color&gt; value, per [[css3-color#numerical]]. Represents the color used
+        for the text portion of links. No <a href=-"https://drafts.csswg.org/selectors/#the-active-pseudo">pseudo class values</a> are
+        given. </li>
+      <li><dfn for='NTPStyle' dict-member>itemHoverColor</dfn>: A valid string
+        &lt;color&gt; value, per [[css3-color#numerical]]. Represents the color used
+        for the <code>backgroundColor</code> for a {{NTPItem}} for :hover/:active
+        states</li>
+    </ul>
+
+    Issue: should we add a shorthand `background` property for convenience?
+  </section>
+
+  <section>
+    <pre class="idl">
+        enum NTPItemType {
+          "bookmark",
+          "recent",
+          "suggestion",
+          "readingListEntry",
+          "card",
+        };
+    </pre>
+
+
+    <ul>
+      <li><dfn for='NTPItemType' dict-member>bookmark</dfn>: Used for any bookmarks
+        prominently featured on the original NTP. </li>
+      <li><dfn for='NTPItemType' dict-member>recent</dfn>: Used for any recent
+        tabs that would be featured on the original NTP. </li>
+      <li><dfn for='NTPItemType' dict-member>suggestion</dfn>: Used for item
+        that is based on a browsers recommendation, rather than the user's direct
+        history or bookmark that woudl be featured on the original NTP. </li>
+      <li><dfn for='NTPItemType' dict-member>readingListEntry</dfn>: Used for any
+        link that would be featured as an entry on a Reading List on the original NTP.</li>
+      <li><dfn for='NTPItemType' dict-member>readingListEntry</dfn>: Used for items
+        that feature card like widgets - e.g. text previews, preview images, etc</li>
+    </ul>
+
+  </section>
+
+  <section>
+    <pre class="idl">
+      interface Color {
+        readonly attribute DOMString value;
+      };
+    </pre>
+
+    {{Color}} is a valid &lt;color&gt; value, as per [[css3-color#numerical]]
+
+    Issue: can we import this rather than declaring it locally?
+  </section>
+
+  <section>
+    <pre class="idl">
+      interface BGImage {
+        readonly attribute USVString value;
+      };
+    </pre>
+
+    {{BGImage}} is a valid &lt;image&gt; value, as per [[css3-images#typedef-image]]
+
+    Issue: can we import this rather than declaring it locally?
+  </section>
+
+  <section>
+    <pre class="idl">
+      interface BGPosition {
+        readonly attribute DOMString value;
+      };
+    </pre>
+
+    {{BGPosition}} is a valid &lt;bg-position&gt; value, as per [[css4background#typedef-bg-position]]
+
+    Issue: can we import this rather than declaring it locally?
+  </section>
+
+  <section>
+    <pre class="idl">
+      interface BGRepeat {
+        readonly attribute DOMString value;
+      };
+    </pre>
+
+    {{BGRepeat}} is a valid &lt;repeat-style&gt; value, as per [[css4background#typedef-repeat-style]]
+
+    Issue: can we import this rather than declaring it locally?
+  </section>
+
+</section>
