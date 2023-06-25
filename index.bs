@@ -40,7 +40,7 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
     as it would be if no extension had <i>replaced</i> the
     <abbr title="New Tab Page">NTP</abbr>. Any theming, bookmarking,
     organiziation, etc. done by the user should be included when determining
-    the "<code>original<code>" value. This means UAs MUST update any data to reflect
+    the "<code>original</code>" value. This means UAs MUST update any data to reflect
     any extension that <i>augments</i> (i.e. changes the visual style) the page
     without changing the content thereof. Any data content added to an otherwise
     "<code>original</code>" page DOES NOT need to be exposed.
@@ -84,7 +84,7 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
     <h3 id="NTPItem">NTPItem</h3>
     <pre class="idl">
       dictionary NTPItem {
-          USVString favicon;
+          USVString icon;
           USVString screenshot;
           DOMString href;
           DOMString previewSnippet;
@@ -96,13 +96,15 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
     {{NTPItem}} is a generic object that represents an individual entry in
     <a href="#dom-ntpmetadata-items"><code>NTPMetadata.items</code></a>.
     <ul>
-      <li><dfn for='NTPItem' dict-member>favicon</dfn>: A valid <<bg-image>>
+      <li><dfn for='NTPItem' dict-member>icon</dfn>: A valid <<bg-image>>
         that points to the image that would <a lt="original">originally</a> be
-        used as a favicon for this item on <abbr title="New Tab Page">NTP</abbr>.
+        used as a icon for this item on <abbr title="New Tab Page">NTP</abbr>. Would
+        normally be a favicon or apple-touch-icon. The rendered resolution is up to the
+        consuming extension, so the larger the resolution the better.
         REQUIRED unless, `screenshot` is defined, in which case it MAY be set to "none"</li>
       <li><dfn for='NTPItem' dict-member>screenshot</dfn>: A valid <<bg-image>>
         that would <a lt="original">originally</a> be used as a screenshot for
-        this item on <abbr title="New Tab Page">NTP</abbr>. REQUIRED unless, `favicon` is defined, in which
+        this item on <abbr title="New Tab Page">NTP</abbr>. REQUIRED unless, `icon` is defined, in which
         case it MAY be set to "none"</li>
       <li><dfn for='NTPItem' dict-member>title</dfn>: A string title for the
         item. </li>
