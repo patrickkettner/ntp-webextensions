@@ -3,7 +3,7 @@ Title: New Tab Page metadata for WebExtensions
 Shortname: ntp-webextensions
 Level: 1
 Group: wecg
-Status: CG-DRAFT
+Status: UD
 URL: https://patrickkettner.github.io/ntp-webextensions
 Editor: Patrick Kettner, Google, patrickkettner@google.com
 Abstract: This specification describes an object UAs can provide to extensions that includes metadata about the non-customized version of a new tab page.
@@ -191,7 +191,7 @@ spec: html; urlPrefix: https://html.spec.whatwg.org/multipage/
         prominently featured on the <a lt="original">original</a>
         <abbr title="New Tab Page">NTP</abbr>. </li>
       <li><dfn for='NTPItemType' dict-member>recent</dfn>: Used for any recent
-        tabs that would be featured on the <a lt="original">original</a> 
+        tabs that would be featured on the <a lt="original">original</a>
         <abbr title="New Tab Page">NTP</abbr>. </li>
       <li><dfn for='NTPItemType' dict-member>suggestion</dfn>: Used for an item
         that is based on a UAs recommendation, rather than the user's direct
